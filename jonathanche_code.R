@@ -214,3 +214,116 @@ server <- function(input, output) {
 
 shinyApp(ui = ui, server = server)
 
+
+
+
+######################################
+# Code used to generate gif artifact #
+# (Not used for shiny application)   #
+######################################
+
+# require(gganimate)
+# require(tidyverse)
+# require(plyr)
+# 
+# set.seed(2019)
+# NUM_OBS <- 3
+# 
+# # Generate NUM_OBS data points from N(0,1) as if
+# # data generation button were clicked NUM_OBS times
+# mu <- seq(from = -4, to = 4, by = 0.25)
+# df <- data.frame(
+#   x = rep(rnorm(NUM_OBS, mean = 0, sd = 1), length(mu)),
+#   mu = rep(mu, each = NUM_OBS)) %>%
+#   mutate(
+#     y = dnorm(x, mean = mu, sd = 1)
+#   )
+# 
+# # To work with gganimate, build `densities` df to
+# # plot densities using geom_line() instead of stat_function()
+# grid <- seq(-4, 4, length = 101)
+# expanded <- lapply(mu, function(mean) {
+#   data.frame(
+#     mu = mean,
+#     x = grid,
+#     density = dnorm(grid, mean = mean, sd = 1)
+#   )})
+# densities <- rbind.fill(expanded)
+# 
+# 
+# # Animate density plot
+# density_plot <- ggplot(df, aes(x=x, y=y)) +
+#   geom_line(
+#     aes(y=density),
+#     data = densities,
+#     color = "blue", size = 2) +
+#   geom_point(
+#     color = "red", size = 2
+#   ) +
+#   geom_point(
+#     aes(x=x, y=rep(0, dim(df)[1])),
+#     color = "red", size = 4, pch = 4
+#   ) +
+#   geom_segment(
+#     aes(x=x, xend=x, y=y, yend=rep(0, dim(df)[1])),
+#     color = "red", size = 1, alpha = 0.5
+#   ) +
+#   geom_segment(aes(x=-4, xend=4, y=0, yend=0)) +
+#   xlim(-4, 4) +
+#   labs(
+#     title = expression(paste("Density of Normal(", mu, ",1)")),
+#     x = "x",
+#     y = ""
+#   ) +
+#   theme(text = element_text(size = 20)) +
+#   transition_states(mu)
+# 
+# density_plot
+# # anim_save("density.gif", animation = density_plot)
+# 
+# 
+# # Define Normal likelihood function
+# # NOTE: mu passed in and evaluated as vector by default
+# likelihood <- function(mu, sd = 1, df) {
+#   temp <- sapply(df$x, function(x) {
+#     dnorm(x, mean = mu, sd = sd)
+#   })
+#   return(prod(temp))
+# }
+# # Vectorize likelihood function
+# # NOTE: forces mu to be passed in item-wise
+# likelihood_vec <- Vectorize(FUN = likelihood, vectorize.args = "mu")
+# 
+# 
+# likelihood_df <- data.frame(
+#   x = mu,
+#   y = likelihood_vec(mu, df = df)
+# )
+# 
+# # Animate likelihood plot
+# likelihood_plot <- ggplot(likelihood_df, aes(x=x, y=y)) +
+#   stat_function(
+#     fun = likelihood_vec,
+#     args = list(df = df),
+#     n = 1001, color = "red") +
+#   geom_point(
+#     color = "blue", size = 5
+#   ) +
+#   geom_segment(
+#     aes(x=x, xend=x, y=y, yend=0),
+#     color = "blue", size = 2
+#   ) +
+#   xlim(-4, 4) +
+#   labs(
+#     title = expression(paste("Likelihood of data")),
+#     x = expression(mu),
+#     y = ""
+#   ) +
+#   theme(
+#     text = element_text(size = 20),
+#     axis.text.y = element_blank(),
+#     axis.ticks.y = element_blank()) +
+#   transition_states(x)
+# 
+# likelihood_plot
+# # anim_save("likelihood.gif", animation = likelihood_plot)
