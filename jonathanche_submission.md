@@ -4,11 +4,11 @@
 
 **Affiliation**: Ph.D. Statistics student, Harvard University
 
-**Artifact:** [Link to Shiny web app]()
+**Artifact:** [Link to Shiny web app](https://jche.shinyapps.io/likelihood-animation/)
 
-![a gif of my submission](datasci-animation/jonathanche_artifact.gif)
+![a gif of my submission](jonathanche_artifact.gif)
 
-**Code:** [Code from repo](datasci-animation/jonathanche_code.R)
+**Code:** [Code from repo](jonathanche_code.R)
 
 ### Explanation
 
