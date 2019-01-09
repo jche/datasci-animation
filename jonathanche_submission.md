@@ -4,12 +4,11 @@
 
 **Affiliation**: Ph.D. Statistics student, Harvard University
 
-**Artifact:**
-*Insert embedded .gif of submission [(see how to)](https://stackoverflow.com/questions/34341808/is-there-a-way-to-add-a-gif-to-a-markdown-file) OR link to web app:*
+**Artifact:** [Link to Shiny web app]()
 
-![a gif of my submission](ArtifactExamples/harrypotter_artifact.gif)
+![a gif of my submission](datasci-animation/jonathanche_artifact.gif)
 
-**Code:** *Insert [link to code file](CodeExamples/harrypotter_code.Rmd) from repo*
+**Code:** [Code from repo](datasci-animation/jonathanche_code.R)
 
 ### Explanation
 
