@@ -217,23 +217,24 @@ shinyApp(ui = ui, server = server)
 
 
 
-######################################
-# Code used to generate gif artifact #
-# (Not used for shiny application)   #
-######################################
+#######################################
+# gganimate code used to produce .gif #
+# (not used for Shiny application)    #
+#######################################
 
 # require(gganimate)
 # require(tidyverse)
 # require(plyr)
 # 
 # set.seed(2019)
-# NUM_OBS <- 3
+# NUM_OBS <- 5
 # 
 # # Generate NUM_OBS data points from N(0,1) as if
 # # data generation button were clicked NUM_OBS times
 # mu <- seq(from = -4, to = 4, by = 0.25)
+# points <- rnorm(NUM_OBS, mean = 0, sd = 1)
 # df <- data.frame(
-#   x = rep(rnorm(NUM_OBS, mean = 0, sd = 1), length(mu)),
+#   x = rep(points, length(mu)),
 #   mu = rep(mu, each = NUM_OBS)) %>%
 #   mutate(
 #     y = dnorm(x, mean = mu, sd = 1)
@@ -282,6 +283,7 @@ shinyApp(ui = ui, server = server)
 # # anim_save("density.gif", animation = density_plot)
 # 
 # 
+# 
 # # Define Normal likelihood function
 # # NOTE: mu passed in and evaluated as vector by default
 # likelihood <- function(mu, sd = 1, df) {
@@ -297,14 +299,14 @@ shinyApp(ui = ui, server = server)
 # 
 # likelihood_df <- data.frame(
 #   x = mu,
-#   y = likelihood_vec(mu, df = df)
+#   y = likelihood_vec(mu, df = data.frame(x=points))
 # )
 # 
 # # Animate likelihood plot
 # likelihood_plot <- ggplot(likelihood_df, aes(x=x, y=y)) +
 #   stat_function(
 #     fun = likelihood_vec,
-#     args = list(df = df),
+#     args = list(df = data.frame(x=points)),
 #     n = 1001, color = "red") +
 #   geom_point(
 #     color = "blue", size = 5
@@ -327,3 +329,4 @@ shinyApp(ui = ui, server = server)
 # 
 # likelihood_plot
 # # anim_save("likelihood.gif", animation = likelihood_plot)
+
